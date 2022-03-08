@@ -1,9 +1,9 @@
 let cells = [];
-let cellSize = 50;
+let cellSize = 20;
 let cols, rows;
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(600, 600);
   const div = document.querySelector("canvas");
   div.addEventListener("contextmenu", ( e )=> { e.preventDefault(); return false; } );
   
