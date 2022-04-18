@@ -1,15 +1,20 @@
 let cells = [];
-let cellSize = 20;
+let cellSize;
 let cols, rows;
 
 function setup() {
-  createCanvas(600, 600);
+  createCanvas(500, 500);
   const div = document.querySelector("canvas");
-  div.addEventListener("contextmenu", ( e )=> { e.preventDefault(); return false; } );
+  div.addEventListener("contextmenu", (event) => {event.preventDefault(); return false; });
+  
+  cellSize = floor(random(18, 40));
+  while (width % cellSize !== 0) {
+    cellSize++;
+  }
   
   // Making 2D Array
-  rows = height/cellSize;
-  cols = width/cellSize;
+  rows = height / cellSize;
+  cols = width / cellSize;
 
   cells = [];
   for (let i = 0; i < cols; i++) {
@@ -60,16 +65,7 @@ function mousePressed() {
   for (let i = 0; i < cols; i++) {
     for (let j = 0; j < rows; j++) {
       const cell = cells[i][j];
-      if (cell.containsPoint(mouseX, mouseY)) {
-        if (mouseButton == LEFT) {
-          if (cell.flagged) cell.flagged = false;
-          else if (cell.isMine) lose();
-          else cell.reveal(cells);
-        }
-        if (mouseButton == RIGHT) {
-          cell.flagged = !cell.flagged;
-        }
-      }
+      cell.clicked(cells);
     }
   }
 }
